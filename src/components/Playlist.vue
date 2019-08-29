@@ -35,8 +35,8 @@ import Amplitude from 'amplitudejs'
 
 // const playlist = {}
 
-const SPACE_ID = 'y602lrir31sc'
-const ACCESS_TOKEN = '_fn5u8_9rBIhqKyEP2w6sXyFW-SIH4HXEcAPfDiVYAo'
+const SPACE_ID = '33sx5rwissga'
+const ACCESS_TOKEN = 'YlNLjIaBFrWUEZYe7x7hYTZuIpOtx_n1F_vyRYBzBBI'
 
 const client = contentful.createClient({
   space: SPACE_ID,
