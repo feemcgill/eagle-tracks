@@ -12,7 +12,8 @@
     "contentful": "^7.8.2",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue-styled-components": "^1.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
