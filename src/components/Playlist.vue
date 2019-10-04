@@ -1,8 +1,7 @@
 <template>
 <div id="eagle-tracks">
-  <TheHeader>
-      <h1>Eagle Tracks</h1>
-      <img src="../assets/tape.jpg" alt="A tape">
+  <TheHeader class="title-header">
+      <h1>Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
   </TheHeader>
 
   <GetTheTape>
@@ -13,21 +12,50 @@
   <template v-if="loading">
       LOADING
   </template>
-
   <template v-else>
     <ThePlaylist class="the-playlist">
       <tr v-for="track in playlist.songs" v-bind:key="track.name">
-        <td class="amplitude-play" :data-amplitude-song-index="track.index">PLAY</td>
+        <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index">PLAY</a></td>
         <td>{{ track.name }}</td>
         <td>{{ track.artist }}</td>
       </tr>
-    </ThePlaylist>
+    </ThePlaylist>    
   </template>
 
+    
   <AboutEagleTracks>
     <div class="about">
       <h2>About Eagle Tracks</h2>
-      <img src="../assets/studio.jpg" alt="A tape">
+
+      <carousel :scrollPerPage="false" :navigationEnabled="true" :autoplay="true">
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g1.jpg" alt="A tape">
+            </div>
+        </slide>
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g2.jpg" alt="A tape">
+            </div>
+        </slide>
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g3.jpg" alt="A tape">
+            </div>
+        </slide>
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g4.jpg" alt="A tape">
+            </div>
+        </slide>
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g5.jpg" alt="A tape">
+              <img src="../assets/g6.jpg" alt="A tape">
+
+            </div>
+        </slide>                         
+      </carousel>      
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
@@ -35,16 +63,28 @@
     <div class="info">
       <img src="../assets/water.gif" alt="">
       <img src="../assets/moulder.gif" alt="">
-      <img src="../assets/trump.gif" alt="">
     </div>
   </AboutEagleTracks>
 
   <TheFooter>
-      <div class="amplitude-wave-form"></div>      
-      <span class="amplitude-play-pause playlist-control"><span></span></span> <span class="amplitude-prev playlist-control">Prev</span><span class="amplitude-next playlist-control">Next</span>
       <progress class="amplitude-song-played-progress"></progress>
+      <div class="amplitude-wave-form"></div>
+      <div class="main-controls">
+        <span class="amplitude-prev et-player-button">Prev</span>
+        <span class="amplitude-play-pause et-player-button"><span></span></span> 
+        <span class="amplitude-next et-player-button">Next</span>
+      </div>
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
   </TheFooter>
+
+  <ContactSection>
+    <h3>Contact Us</h3>
+    <div><a href="mailto:">info@eagletracks</a></div>
+    <img src="../assets/tree-car.jpg" alt="">
+  </ContactSection>
+
+
+    
 </div>
 </template>
 
@@ -53,126 +93,17 @@
 <script>
 import * as contentful from 'contentful'
 import Amplitude from 'amplitudejs'
-import styled from 'vue-styled-components';
+import { Carousel, Slide } from 'vue-carousel'
 
-const TheHeader = styled.header`
-  text-align: center;
-  margin-top: 60px;
-  margin-bottom: 20px;
-  h1 {
-    color: white;
-    /* //text-shadow: 2px 2px 1px green, 4px 4px 1px yellow, 6px 6px 1px orange;  */
-    background: palegreen;
-    font-size: 100px;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  img {
-    width: 200px;
-    height: auto;
-  }
-`
-const GetTheTape = styled.div `
-  background: pink;
-  color: purple;
-  padding: 5px;
-  a {
-    color: green;
-  }
-  position: fixed;
-  top: 30px;
-  right: 30px;
-`
-const ThePlaylist = styled.table`
-  border: 10px solid yellow;
-  border-right-color: red;
-  border-bottom-color: green;
-  border-left-color: orange;
-  background: navy;
-  width: 100%;
-  tr {
-  }
-  td {
-    border-bottom: 1px solid white;
-    padding: 10px;
-  }
-`;
 
-const AboutEagleTracks = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  .about {
-    width: 50%;
-    margin-top: 50px;
-    background: khaki;
-    color: green;
-    padding: 4px;
-    font-size: 20px;
-    h2 {
-      background: aqua;
-      padding: 2px;
-      display: inline-block;
-      font-size: 40px;
-      margin-top: -10px;
-      position: relative;
-      z-index: 1;
-      color: blue;
-    }
-    img {
-      margin-bottom: 20px;
-      margin-top: -10px;
-      max-width: 400px;
-    }
-
-    p:last-of-type {
-      margin-bottom: 0;
-    }    
-  }
-  .info {
-    width: 50%;
-    background: wheat;
-    margin-top: 20px;
-    text-align: center;
-    img {
-      display: block;
-      margin: 50px;
-    }
-  }
-
-`
-
-const TheFooter = styled.footer`
-  background: purple;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  .playlist-control {
-    background: yellow;
-    padding: 4px;
-    color: purple;
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-  }
-  .amplitude-play-pause {
-    span:before {
-      content: 'play';
-      display: block;
-      pointer-events: none;
-    }
-    &.amplitude-paused {
-      span:before {
-        content: 'play'
-      }
-    }
-    &.amplitude-playing {
-      span:before {
-        content: 'pause'
-      }
-    }
-  }
-`;
+import {
+  TheHeader,
+  GetTheTape,
+  ThePlaylist,
+  AboutEagleTracks,
+  TheFooter,
+  ContactSection
+} from './styles.js'
 
 const SPACE_ID = '33sx5rwissga'
 const ACCESS_TOKEN = 'YlNLjIaBFrWUEZYe7x7hYTZuIpOtx_n1F_vyRYBzBBI'
@@ -192,7 +123,10 @@ export default {
     GetTheTape,
     ThePlaylist,
     AboutEagleTracks,
-    TheFooter
+    TheFooter,
+    Carousel,
+    Slide,
+    ContactSection
   },  
   data() {
     return {
@@ -223,31 +157,40 @@ export default {
           })
         }
 
-        Amplitude.init({
-          "songs": this.playlist.songs,
-          "callbacks": {
-            'song_change': () => {
-              this.getTrack()
+       Amplitude.init({   
+            waveforms: {
+              sample_rate: 240
             },
-            'initialized': () => {
-              this.getTrack()
-            }
-          }
+            //preload: "auto",
+            debug: true,
+            songs: this.playlist.songs,
+            callbacks: {
+              'song_change': () => {
+                this.getTrack()
+              },
+              'initialized': () => {
+                this.getTrack()
+                this.loading = false
+              }
+            },            
         });    
-        this.loading = false
       })        
     },
     getTrack() {
-      console.log('Audio has been changed.', Amplitude.getActiveSongMetadata())
+      console.log('Audio has been changed.', Amplitude)
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
+    },
+    clicker() {
+      console.log('clicker')
     }
   },
   created() {
     this.getData()
     setTimeout(() => {
       Amplitude.bindNewElements()
-    }, 100);    
+      window.tude = Amplitude
+    }, 1000);    
   },
   beforeCreate() {
   },  
@@ -268,22 +211,4 @@ export default {
   margin: 0 auto;
   width: 85%;
 }
-.amplitude-wave-form {
-  /* width: 300px; */
-}
-
-</style>
-
-<style>
-svg {
-  height: 50px;
-  width: 100%;
-}
-.amplitude-wave-form svg * {
-  stroke: pink;
-}
-* {
-  box-sizing: border-box;
-}
-
 </style>
