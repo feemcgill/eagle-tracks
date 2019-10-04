@@ -28,7 +28,6 @@ const TheHeader = styled.header`
   h1 {
     color: white;
     /* //text-shadow: 2px 2px 1px green, 4px 4px 1px yellow, 6px 6px 1px orange;  */
-    background: palegreen;
     font-size: 100px;
     display: inline-block;
     margin-bottom: 20px;
@@ -62,7 +61,6 @@ const ThePlaylist = styled.table`
   border-right-color: red;
   border-bottom-color: green;
   border-left-color: orange;
-  background: navy;
   width: 100%;
   box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
   margin-bottom: 100px;
