@@ -15,7 +15,7 @@
   <template v-else>
     <ThePlaylist class="the-playlist">
       <tr v-for="track in playlist.songs" v-bind:key="track.name">
-        <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index">PLAY</a></td>
+        <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
         <td>{{ track.name }}</td>
         <td>{{ track.artist }}</td>
       </tr>

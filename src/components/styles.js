@@ -74,7 +74,7 @@ const ThePlaylist = styled.table`
     vertical-align: middle;
     font-size: 30px;
     font-family: 'helvetica';
-    text-shadow: 1px 1px 1px red;
+    text-shadow: 5px 5px 5px purple;
   }
 `;
 
