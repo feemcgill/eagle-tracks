@@ -2,6 +2,8 @@
 <div id="eagle-tracks">
   <TheHeader class="title-header">
       <h1>Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
+      <h2>Vol. 1</h2>
+      <h3>{{aa}}</h3>
   </TheHeader>
 
   <GetTheTape>
@@ -95,7 +97,6 @@ import * as contentful from 'contentful'
 import Amplitude from 'amplitudejs'
 import { Carousel, Slide } from 'vue-carousel'
 
-
 import {
   TheHeader,
   GetTheTape,
@@ -131,11 +132,28 @@ export default {
   data() {
     return {
       loading: false,
+      anal: null,
+      analArray: null,
+      aa: 69,
       playlist: {},
       currentTrack: 'not yet'
     }
   },
   methods: {
+    initAudio() {
+      setTimeout(() => {
+        Amplitude.bindNewElements()
+        this.anal = Amplitude.getAnalyser()
+        this.anal.fftSize = 32;
+        this.analArray = new Uint8Array(this.anal.frequencyBinCount);
+        this.anal.getByteFrequencyData(this.analArray)
+        setInterval(() => {
+          this.anal.getByteFrequencyData(this.analArray)
+          this.aa = this.analArray[10]
+        }, 100);
+
+      }, 1000);       
+    },    
     getData() {
       this.loading = true
 
@@ -171,6 +189,7 @@ export default {
               'initialized': () => {
                 this.getTrack()
                 this.loading = false
+                this.initAudio()
               }
             },            
         });    
@@ -186,14 +205,10 @@ export default {
     }
   },
   created() {
-    this.getData()
-    setTimeout(() => {
-      Amplitude.bindNewElements()
-      window.tude = Amplitude
-    }, 1000);    
+    this.getData() 
   },
   beforeCreate() {
-  },  
+  }
 }
 
 //
