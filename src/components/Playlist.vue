@@ -1,9 +1,10 @@
 <template>
 <div id="eagle-tracks">
-  <TheHeader class="title-header">
+  <TheHeader class="title-header" :jammer="{
+    primary: '60'
+  }">
       <h1>Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
-      <h2>Vol. 1</h2>
-      <h3>{{aa}}</h3>
+      <h2>Vol. 1 {{aa}}</h2>
   </TheHeader>
 
   <GetTheTape>
@@ -29,34 +30,67 @@
     <div class="about">
       <h2>About Eagle Tracks</h2>
 
-      <carousel :scrollPerPage="false" :navigationEnabled="true" :autoplay="true">
+      <carousel :scrollPerPage="false" :perPage="1" :navigationEnabled="true" :paginationEnabled="false" :autoplay="true">
         <slide>
             <div class="etslide">
-              <img src="../assets/g1.jpg" alt="A tape">
+              <img src="../assets/slider/g1.jpg" alt="A tape">
             </div>
         </slide>
-        <slide>
-            <div class="etslide">
-              <img src="../assets/g2.jpg" alt="A tape">
-            </div>
-        </slide>
-        <slide>
-            <div class="etslide">
-              <img src="../assets/g3.jpg" alt="A tape">
-            </div>
-        </slide>
-        <slide>
-            <div class="etslide">
-              <img src="../assets/g4.jpg" alt="A tape">
-            </div>
-        </slide>
-        <slide>
-            <div class="etslide">
-              <img src="../assets/g5.jpg" alt="A tape">
-              <img src="../assets/g6.jpg" alt="A tape">
 
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/17190001.jpg" alt="A tape">
             </div>
-        </slide>                         
+        </slide>    
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/000053620025.jpg" alt="A tape">
+            </div>
+        </slide>      
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/IMG_17812.jpg" alt="A tape">
+            </div>
+        </slide>      
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/IMG_8222.jpg" alt="A tape">
+            </div>
+        </slide>      
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/IMG_7090.jpg" alt="A tape">
+            </div>
+        </slide> 
+        <slide>
+            <div class="etslide">
+              <img src="../assets/g6.jpg" alt="A tape">
+            </div>
+        </slide>                
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/IMG_6505.jpg" alt="A tape">
+            </div>
+        </slide>      
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/slider/Ralph.jpg" alt="A tape">
+            </div>
+        </slide>    
+
+
+        <slide>
+            <div class="etslide">
+              <img src="../assets/studio.jpg" alt="A tape">
+            </div>
+        </slide>                     
+                                             
+                      
       </carousel>      
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
@@ -65,6 +99,7 @@
     <div class="info">
       <img src="../assets/water.gif" alt="">
       <img src="../assets/moulder.gif" alt="">
+      <img src="../assets/7eL.gif" alt="">
     </div>
   </AboutEagleTracks>
 
@@ -81,7 +116,9 @@
 
   <ContactSection>
     <h3>Contact Us</h3>
-    <div><a href="mailto:">info@eagletracks</a></div>
+    <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
+        <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
+
     <img src="../assets/tree-car.jpg" alt="">
   </ContactSection>
 
@@ -96,6 +133,9 @@
 import * as contentful from 'contentful'
 import Amplitude from 'amplitudejs'
 import { Carousel, Slide } from 'vue-carousel'
+import styled from 'vue-styled-components'
+
+let aaa;
 
 import {
   TheHeader,
@@ -211,7 +251,6 @@ export default {
   }
 }
 
-//
 
 
 </script>
@@ -225,5 +264,8 @@ export default {
   padding-bottom: 300px;
   margin: 0 auto;
   width: 85%;
+}
+body {
+  background-size: 350%;
 }
 </style>

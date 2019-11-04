@@ -1,9 +1,13 @@
 import styled from 'vue-styled-components'
 import memorex from "../assets/memorex.gif"
 import trees from '../assets/trees.jpg'
+import td from '../assets/tie-dye.jpg'
+
 // import treecar from '../assets/tree-car.jpg'
 import { css } from 'vue-styled-components'
+import Playlist from '@/components/Playlist.vue'
 
+console.log('FROMHERE', Playlist);
 
 // Media Queries
 const media_query = {
@@ -23,7 +27,7 @@ const media_query = {
 
 const TheHeader = styled.header`
   text-align: center;
-  margin-top: 60px;
+  margin-top: ${props => props.jammer};
   margin-bottom: 20px;
   h1 {
     color: white;
@@ -42,7 +46,6 @@ const TheHeader = styled.header`
 
     }
   }
-
 `
 const GetTheTape = styled.div `
   background: pink;
@@ -110,9 +113,9 @@ const AboutEagleTracks = styled.section`
       color: blue;
     }
     img {
-      margin-bottom: 20px;
+      /* margin-bottom: 20px;
       margin-top: -10px;
-      max-width: 400px;
+      max-width: 400px; */
     }
 
     p:last-of-type {
@@ -140,10 +143,16 @@ const AboutEagleTracks = styled.section`
   }
   .etslide {
     width: 100%;
-    background: pink;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-image: url(${td});
+    background-size: cover;
     img {
       width: 100%;
       height: auto;
+      display: block;
     }
   }
 `
