@@ -11,6 +11,7 @@
     "amplitudejs": "^5.0.2",
     "contentful": "^7.8.2",
     "core-js": "^2.6.5",
+    "gsap": "^3.0.1",
     "vue": "^2.6.10",
     "vue-carousel": "^0.18.0",
     "vue-router": "^3.0.3",

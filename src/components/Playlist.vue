@@ -3,8 +3,8 @@
   <TheHeader class="title-header" :jammer="{
     primary: '60'
   }">
-      <h1>Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
-      <h2>Vol. 1 {{aa}}</h2>
+      <h1 ref="header" >Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
+      <h2>Vol. 1</h2>
   </TheHeader>
 
   <GetTheTape>
@@ -17,18 +17,20 @@
   </template>
   <template v-else>
     <ThePlaylist class="the-playlist">
-      <tr v-for="track in playlist.songs" v-bind:key="track.name">
-        <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
-        <td>{{ track.name }}</td>
-        <td>{{ track.artist }}</td>
-      </tr>
+      <table ref="playlist">
+        <tr v-for="track in playlist.songs" v-bind:key="track.name">
+          <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
+          <td>{{ track.name }}</td>
+          <td>{{ track.artist }}</td>
+        </tr>
+      </table>
     </ThePlaylist>    
   </template>
 
     
   <AboutEagleTracks>
-    <div class="about">
-      <h2>About Eagle Tracks</h2>
+    <div ref="about" class="about">
+      <h2 >About Eagle Tracks</h2>
 
       <carousel :scrollPerPage="false" :perPage="1" :navigationEnabled="true" :paginationEnabled="false" :autoplay="true">
         <slide>
@@ -96,7 +98,7 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
     </div>
-    <div class="info">
+    <div ref="info" class="info">
       <img src="../assets/water.gif" alt="">
       <img src="../assets/moulder.gif" alt="">
       <img src="../assets/7eL.gif" alt="">
@@ -115,11 +117,13 @@
   </TheFooter>
 
   <ContactSection>
-    <h3>Contact Us</h3>
-    <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
-        <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
+    <div ref="contact">
+      <h3>Contact Us</h3>
+      <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
+          <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
 
-    <img src="../assets/tree-car.jpg" alt="">
+      <img src="../assets/tree-car.jpg" alt="">
+    </div>
   </ContactSection>
 
 
@@ -134,6 +138,8 @@ import * as contentful from 'contentful'
 import Amplitude from 'amplitudejs'
 import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
+import gsap from "gsap";
+import {map} from '../helpers'
 
 let aaa;
 
@@ -187,10 +193,8 @@ export default {
         this.anal.fftSize = 32;
         this.analArray = new Uint8Array(this.anal.frequencyBinCount);
         this.anal.getByteFrequencyData(this.analArray)
-        setInterval(() => {
-          this.anal.getByteFrequencyData(this.analArray)
-          this.aa = this.analArray[10]
-        }, 100);
+        
+        requestAnimationFrame(this.visualize)
 
       }, 1000);       
     },    
@@ -236,12 +240,40 @@ export default {
       })        
     },
     getTrack() {
-      console.log('Audio has been changed.', Amplitude)
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
     },
     clicker() {
-      console.log('clicker')
+    },
+    visualize() {
+          this.anal.getByteFrequencyData(this.analArray)
+          this.aa = this.analArray[4]
+          //the_numb, in_min, in_max, out_min, out_max
+          gsap.to(this.$refs.header, 0.1, {
+            scale: map(this.aa, 0, 150, 1, 1.1) 
+          }); 
+
+          this.$refs.header.style.color = 'hsla(' +  map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)';
+
+          this.$refs.playlist.style.borderTopColor = 'hsla(' +  map(this.analArray[1], 0, 150, 0, 500) + ', 100%, 50%, 1)';
+          this.$refs.playlist.style.borderRightColor = 'hsla(' +  map(this.analArray[5], 0, 150, -500, 0) + ', 100%, 50%, 1)';
+          this.$refs.playlist.style.borderBottomColor = 'hsla(' +  map(this.analArray[3], 0, 150, 0, 300) + ', 100%, 50%, 1)';
+          this.$refs.playlist.style.borderLeftColor = 'hsla(' +  map(this.analArray[4], 0, 150, -200, 100) + ', 100%, 50%, 1)';
+
+          this.$refs.about.style.color = 'hsla(' +  map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)';
+
+          gsap.to(this.$refs.about,0.1, {
+            scale: map(this.analArray[5], 0, 150, 0.99, 1) 
+          }); 
+
+          gsap.to(this.$refs.info, 0.05, {
+            scale: map(this.analArray[10], 0, 150, 0.99, 1) 
+          });           
+
+
+          this.$refs.contact.style.backgroundColor = 'hsla(' +  map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)';
+          
+          requestAnimationFrame(this.visualize)
     }
   },
   created() {
@@ -263,7 +295,6 @@ export default {
   color: white;
   padding-bottom: 300px;
   margin: 0 auto;
-  width: 85%;
 }
 body {
   background-size: 350%;

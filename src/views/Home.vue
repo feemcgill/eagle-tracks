@@ -8,6 +8,7 @@
 // @ is an alias to /src
 import Playlist from '@/components/Playlist.vue'
 
+
 export default {
   name: 'home',
   components: {
@@ -22,11 +23,16 @@ export default {
 }
 
 body {
+  background-color: aquamarine;
   background-image: url('../assets/eag.jpg');
-  background-size: 30%;
+  background-size: 50%;
   background-repeat: repeat;
 }
 
+.home {
+  width: 100%;
+  overflow: hidden;
+}
 .title-header  h1{
   background-image: url('../assets/tie-dye.jpg');
   background-position: center;

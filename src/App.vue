@@ -75,4 +75,8 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+* {
+  box-sizing: border-box;
+}
 </style>

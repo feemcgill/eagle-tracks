@@ -59,14 +59,16 @@ const GetTheTape = styled.div `
   right: 30px;
   display: none;
 `
-const ThePlaylist = styled.table`
-  border: 10px solid yellow;
-  border-right-color: red;
-  border-bottom-color: green;
-  border-left-color: orange;
-  width: 100%;
-  box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
-  margin-bottom: 100px;
+const ThePlaylist = styled.div`
+  table {
+    border: 10px solid yellow;
+    border-right-color: red;
+    border-bottom-color: green;
+    border-left-color: orange;
+    width: 100%;
+    box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
+    margin-bottom: 100px;
+  }
   tr {
   }
   td {
@@ -235,8 +237,10 @@ const TheFooter = styled.footer`
 
 const ContactSection  = styled.div `
   margin: 100px 0;
-  font-size: 100px;
+  font-size: 30px;
   text-align: center;
+  background: yellow;
+  color: aqua;
   img {
     margin-top: 40px;
     /* max-width: 300px; */
