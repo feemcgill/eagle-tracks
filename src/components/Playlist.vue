@@ -107,7 +107,6 @@
 
   <TheFooter>
       <progress class="amplitude-song-played-progress"></progress>
-      <div class="amplitude-wave-form"></div>
       <div class="main-controls">
         <span class="amplitude-prev et-player-button">Prev</span>
         <span class="amplitude-play-pause et-player-button"><span></span></span> 
@@ -220,10 +219,10 @@ export default {
         }
 
        Amplitude.init({   
-            waveforms: {
-              sample_rate: 240
-            },
-            //preload: "auto",
+            // waveforms: {
+            //   sample_rate: 240
+            // },
+            preload: "auto",
             debug: true,
             songs: this.playlist.songs,
             callbacks: {
