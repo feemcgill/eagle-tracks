@@ -31,7 +31,7 @@
   <AboutEagleTracks>
     <div ref="about" class="about">
       <h2 >About Eagle Tracks</h2>
-
+      <div v-html="aboutText"></div>
       <carousel :scrollPerPage="false" :perPage="1" :navigationEnabled="true" :paginationEnabled="false" :autoplay="true">
         <slide>
             <div class="etslide">
@@ -94,9 +94,7 @@
                                              
                       
       </carousel>      
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae laborum error eaque fuga totam dolores esse in maiores alias, consectetur quasi tempore voluptate neque similique vero, voluptatum aut sint non!</p>
+
     </div>
     <div ref="info" class="info">
       <img src="../assets/water.gif" alt="">
@@ -105,7 +103,11 @@
     </div>
   </AboutEagleTracks>
 
-  <TheFooter>
+  <TheFooter>      
+    
+      <!-- <div class="amplitude-wave-form"></div>	 -->
+      <div class="amplitude-visualization"></div>
+
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
         <span class="amplitude-prev et-player-button">Prev</span>
@@ -134,6 +136,7 @@
 
 <script>
 import * as contentful from 'contentful'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import Amplitude from 'amplitudejs'
 import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
@@ -181,6 +184,7 @@ export default {
       analArray: null,
       aa: 69,
       playlist: {},
+      aboutText: null,
       currentTrack: 'not yet'
     }
   },
@@ -188,7 +192,9 @@ export default {
     initAudio() {
       setTimeout(() => {
         Amplitude.bindNewElements()
+        window.aaa = Amplitude
         this.anal = Amplitude.getAnalyser()
+        console.log(Amplitude, 'ANAL ANAL')
         this.anal.fftSize = 32;
         this.analArray = new Uint8Array(this.anal.frequencyBinCount);
         this.anal.getByteFrequencyData(this.analArray)
@@ -206,9 +212,12 @@ export default {
         include: 10
       })
       .then(entries => {
+        console.log(entries, 'FROM CONTENTFUL');
         const playlist_tracks_raw = entries.items[0].fields.playlist.fields.tracks
         this.playlist.title = entries.items[0].fields.playlist.fields.title
         this.playlist.songs = []
+        this.aboutText = documentToHtmlString(entries.items[0].fields.aboutEagleTracks)
+        console.log('ABOUT TEXT', this.aboutText)
         for (let i = 0; i < playlist_tracks_raw.length; i++) {
           const track = playlist_tracks_raw[i];
           this.playlist.songs.push({
@@ -222,8 +231,8 @@ export default {
             // waveforms: {
             //   sample_rate: 240
             // },
-            preload: "auto",
-            debug: true,
+            // preload: "auto",
+            // debug: true,
             songs: this.playlist.songs,
             callbacks: {
               'song_change': () => {

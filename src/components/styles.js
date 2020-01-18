@@ -166,6 +166,7 @@ const TheFooter = styled.footer`
   bottom: 0;
   left: 0;
   z-index: 9999;
+  height: 56px;
   .playlist-control {
     background: yellow;
     padding: 4px;
