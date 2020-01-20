@@ -11,9 +11,8 @@
     <h2>Get the tape</h2>
     <a href="#">pre-order now!</a>
   </GetTheTape>
-
   <template v-if="loading">
-      LOADING
+    <button v-on:click="initAmplitude">INIT THE AUDIIIOOOO Main man</button>
   </template>
   <template v-else>
     <ThePlaylist class="the-playlist">
@@ -105,8 +104,8 @@
 
   <TheFooter>      
     
-      <!-- <div class="amplitude-wave-form"></div>	 -->
-      <div class="amplitude-visualization"></div>
+      <div class="amplitude-wave-form"></div>	
+      <!-- <div class="amplitude-visualization"></div> -->
 
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
@@ -227,6 +226,10 @@ export default {
           })
         }
 
+   
+      })        
+    },
+    initAmplitude() {
        Amplitude.init({   
             // waveforms: {
             //   sample_rate: 240
@@ -244,8 +247,7 @@ export default {
                 this.initAudio()
               }
             },            
-        });    
-      })        
+        });       
     },
     getTrack() {
       const song = Amplitude.getActiveSongMetadata()
