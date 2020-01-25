@@ -233,6 +233,7 @@ const TheFooter = styled.footer`
   opacity: 1;
   z-index: 500;
   color: aqua;
+  min-width: 1000px;
 }  
 `;
 

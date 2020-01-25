@@ -12,7 +12,7 @@
     <a href="#">pre-order now!</a>
   </GetTheTape>
   <template v-if="loading">
-    <button v-on:click="initAmplitude">INIT THE AUDIIIOOOO Main man</button>
+    <div>loading...</div>
   </template>
   <template v-else>
     <ThePlaylist class="the-playlist">
@@ -104,7 +104,7 @@
 
   <TheFooter>      
     
-      <div class="amplitude-wave-form"></div>	
+      <!-- <div class="amplitude-wave-form"></div>	 -->
       <!-- <div class="amplitude-visualization"></div> -->
 
       <progress class="amplitude-song-played-progress"></progress>
@@ -191,14 +191,14 @@ export default {
     initAudio() {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        window.aaa = Amplitude
-        this.anal = Amplitude.getAnalyser()
-        console.log(Amplitude, 'ANAL ANAL')
-        this.anal.fftSize = 32;
-        this.analArray = new Uint8Array(this.anal.frequencyBinCount);
-        this.anal.getByteFrequencyData(this.analArray)
+        // window.aaa = Amplitude
+        // this.anal = Amplitude.getAnalyser()
+        // console.log(Amplitude, 'ANAL ANAL')
+        // this.anal.fftSize = 32;
+        // this.analArray = new Uint8Array(this.anal.frequencyBinCount);
+        // this.anal.getByteFrequencyData(this.analArray)
         
-        requestAnimationFrame(this.visualize)
+        // requestAnimationFrame(this.visualize)
 
       }, 1000);       
     },    
@@ -225,7 +225,7 @@ export default {
             'url' : track.fields.audio.fields.file.url
           })
         }
-
+        this.initAmplitude()
    
       })        
     },
