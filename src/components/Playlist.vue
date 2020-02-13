@@ -191,13 +191,10 @@ export default {
     initAudio() {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        // window.aaa = Amplitude
         // this.anal = Amplitude.getAnalyser()
-        // console.log(Amplitude, 'ANAL ANAL')
         // this.anal.fftSize = 32;
         // this.analArray = new Uint8Array(this.anal.frequencyBinCount);
         // this.anal.getByteFrequencyData(this.analArray)
-        
         // requestAnimationFrame(this.visualize)
 
       }, 1000);       
