@@ -6,7 +6,7 @@
 
 <script>
 import gsap from 'gsap'
-import mp3 from '../assets/eagle-call.mp3'
+import mp3 from '../assets/hawk.mp3'
 
 
 export default {
@@ -67,5 +67,6 @@ export default {
   height: 275px;
   object-fit: cover;
   opacity: 0;
+  cursor: not-allowed;
 }
 </style>
