@@ -101,7 +101,7 @@
 
   <TheFooter>
 
-      <div class="amplitude-wave-form"></div>
+     <!--  <div class="amplitude-wave-form"></div>  -->
       <!-- <div class="amplitude-visualization"></div> -->
 
       <progress class="amplitude-song-played-progress"></progress>
@@ -184,11 +184,11 @@ export default {
     initAudio () {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        this.anal = Amplitude.getAnalyser()
-        this.anal.fftSize = 32
-        this.analArray = new Uint8Array(this.anal.frequencyBinCount)
-        this.anal.getByteFrequencyData(this.analArray)
-        requestAnimationFrame(this.visualize)
+        // this.anal = Amplitude.getAnalyser()
+        // this.anal.fftSize = 32
+        // this.analArray = new Uint8Array(this.anal.frequencyBinCount)
+        // this.anal.getByteFrequencyData(this.analArray)
+        // requestAnimationFrame(this.visualize)
       }, 1000)
     },
     getData () {
