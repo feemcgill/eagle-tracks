@@ -1,5 +1,5 @@
 import styled from 'vue-styled-components'
-import memorex from "../assets/memorex.gif"
+import memorex from '../assets/memorex.gif'
 import trees from '../assets/trees.jpg'
 import td from '../assets/tie-dye.jpg'
 
@@ -7,23 +7,21 @@ import td from '../assets/tie-dye.jpg'
 import { css } from 'vue-styled-components'
 import Playlist from '@/components/Playlist.vue'
 
-console.log('FROMHERE', Playlist);
+console.log('FROMHERE', Playlist)
 
 // Media Queries
 const media_query = {
   break: (...args) => css`
     @media (max-width: 900px) {
-      ${ css(...args) }
+      ${css(...args)}
     }
   `,
   breakup: (...args) => css`
     @media (min-width: 900px) {
-      ${ css(...args) }
+      ${css(...args)}
     }
-  `,  
+  `
 }
-
-
 
 const TheHeader = styled.header`
   text-align: center;
@@ -47,7 +45,7 @@ const TheHeader = styled.header`
     }
   }
 `
-const GetTheTape = styled.div `
+const GetTheTape = styled.div`
   background: pink;
   color: purple;
   padding: 5px;
@@ -79,7 +77,7 @@ const ThePlaylist = styled.div`
     font-family: 'helvetica';
     text-shadow: 5px 5px 5px purple;
   }
-`;
+`
 
 const AboutEagleTracks = styled.section`
 
@@ -235,9 +233,9 @@ const TheFooter = styled.footer`
   color: aqua;
   min-width: 1000px;
 }  
-`;
+`
 
-const ContactSection  = styled.div `
+const ContactSection = styled.div`
   margin: 100px 0;
   font-size: 30px;
   text-align: center;
@@ -249,7 +247,6 @@ const ContactSection  = styled.div `
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
   }
 `
-
 
 export {
   TheHeader,

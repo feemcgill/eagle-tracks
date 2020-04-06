@@ -23,10 +23,9 @@
           <td>{{ track.artist }}</td>
         </tr>
       </table>
-    </ThePlaylist>    
+    </ThePlaylist>
   </template>
 
-    
   <AboutEagleTracks>
     <div ref="about" class="about">
       <h2 >About Eagle Tracks</h2>
@@ -42,57 +41,55 @@
             <div class="etslide">
               <img src="../assets/slider/17190001.jpg" alt="A tape">
             </div>
-        </slide>    
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/slider/000053620025.jpg" alt="A tape">
             </div>
-        </slide>      
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/slider/IMG_17812.jpg" alt="A tape">
             </div>
-        </slide>      
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/slider/IMG_8222.jpg" alt="A tape">
             </div>
-        </slide>      
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/slider/IMG_7090.jpg" alt="A tape">
             </div>
-        </slide> 
+        </slide>
         <slide>
             <div class="etslide">
               <img src="../assets/g6.jpg" alt="A tape">
             </div>
-        </slide>                
+        </slide>
         <slide>
             <div class="etslide">
               <img src="../assets/slider/IMG_6505.jpg" alt="A tape">
             </div>
-        </slide>      
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/slider/Ralph.jpg" alt="A tape">
             </div>
-        </slide>    
-
+        </slide>
 
         <slide>
             <div class="etslide">
               <img src="../assets/studio.jpg" alt="A tape">
             </div>
-        </slide>                     
-                                             
-                      
-      </carousel>      
+        </slide>
+
+      </carousel>
 
     </div>
     <div ref="info" class="info">
@@ -102,15 +99,15 @@
     </div>
   </AboutEagleTracks>
 
-  <TheFooter>      
-    
-      <!-- <div class="amplitude-wave-form"></div>	 -->
+  <TheFooter>
+
+      <div class="amplitude-wave-form"></div>
       <!-- <div class="amplitude-visualization"></div> -->
 
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
         <span class="amplitude-prev et-player-button">Prev</span>
-        <span class="amplitude-play-pause et-player-button"><span></span></span> 
+        <span class="amplitude-play-pause et-player-button"><span></span></span>
         <span class="amplitude-next et-player-button">Next</span>
       </div>
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
@@ -126,12 +123,8 @@
     </div>
   </ContactSection>
 
-
-    
 </div>
 </template>
-
-
 
 <script>
 import * as contentful from 'contentful'
@@ -139,10 +132,8 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import Amplitude from 'amplitudejs'
 import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
-import gsap from "gsap";
-import {map} from '../helpers'
-
-let aaa;
+import gsap from 'gsap'
+import { map } from '../helpers'
 
 import {
   TheHeader,
@@ -153,12 +144,14 @@ import {
   ContactSection
 } from './styles.js'
 
+let aaa
+
 const SPACE_ID = '33sx5rwissga'
 const ACCESS_TOKEN = 'YlNLjIaBFrWUEZYe7x7hYTZuIpOtx_n1F_vyRYBzBBI'
 
 const client = contentful.createClient({
   space: SPACE_ID,
-  accessToken: ACCESS_TOKEN 
+  accessToken: ACCESS_TOKEN
 })
 
 export default {
@@ -175,8 +168,8 @@ export default {
     Carousel,
     Slide,
     ContactSection
-  },  
-  data() {
+  },
+  data () {
     return {
       loading: false,
       anal: null,
@@ -188,18 +181,17 @@ export default {
     }
   },
   methods: {
-    initAudio() {
+    initAudio () {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        // this.anal = Amplitude.getAnalyser()
-        // this.anal.fftSize = 32;
-        // this.analArray = new Uint8Array(this.anal.frequencyBinCount);
-        // this.anal.getByteFrequencyData(this.analArray)
-        // requestAnimationFrame(this.visualize)
-
-      }, 1000);       
-    },    
-    getData() {
+        this.anal = Amplitude.getAnalyser()
+        this.anal.fftSize = 32
+        this.analArray = new Uint8Array(this.anal.frequencyBinCount)
+        this.anal.getByteFrequencyData(this.analArray)
+        requestAnimationFrame(this.visualize)
+      }, 1000)
+    },
+    getData () {
       this.loading = true
 
       client.getEntries({
@@ -207,94 +199,86 @@ export default {
         content_type: 'homepage',
         include: 10
       })
-      .then(entries => {
-        console.log(entries, 'FROM CONTENTFUL');
-        const playlist_tracks_raw = entries.items[0].fields.playlist.fields.tracks
-        this.playlist.title = entries.items[0].fields.playlist.fields.title
-        this.playlist.songs = []
-        this.aboutText = documentToHtmlString(entries.items[0].fields.aboutEagleTracks)
-        console.log('ABOUT TEXT', this.aboutText)
-        for (let i = 0; i < playlist_tracks_raw.length; i++) {
-          const track = playlist_tracks_raw[i];
-          this.playlist.songs.push({
-            'name' : track.fields.title,
-            'artist' : track.fields.audio.fields.description,
-            'url' : track.fields.audio.fields.file.url
-          })
+        .then(entries => {
+          const playlist_tracks_raw = entries.items[0].fields.playlist.fields.tracks
+          this.playlist.title = entries.items[0].fields.playlist.fields.title
+          this.playlist.songs = []
+          this.aboutText = documentToHtmlString(entries.items[0].fields.aboutEagleTracks)
+          for (let i = 0; i < playlist_tracks_raw.length; i++) {
+            const track = playlist_tracks_raw[i]
+            this.playlist.songs.push({
+              'name': track.fields.title,
+              'artist': track.fields.audio.fields.description,
+              'url': track.fields.audio.fields.file.url
+            })
+          }
+          this.initAmplitude()
+        })
+    },
+    initAmplitude () {
+      Amplitude.init({
+        // waveforms: {
+        //   sample_rate: 240
+        // },
+        // preload: "auto",
+        // debug: true,
+        songs: this.playlist.songs,
+        callbacks: {
+          'song_change': () => {
+            this.getTrack()
+          },
+          'initialized': () => {
+            this.getTrack()
+            this.loading = false
+            this.initAudio()
+          }
         }
-        this.initAmplitude()
-   
-      })        
+      })
     },
-    initAmplitude() {
-       Amplitude.init({   
-            // waveforms: {
-            //   sample_rate: 240
-            // },
-            // preload: "auto",
-            // debug: true,
-            songs: this.playlist.songs,
-            callbacks: {
-              'song_change': () => {
-                this.getTrack()
-              },
-              'initialized': () => {
-                this.getTrack()
-                this.loading = false
-                this.initAudio()
-              }
-            },            
-        });       
-    },
-    getTrack() {
+    getTrack () {
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
     },
-    clicker() {
+    clicker () {
     },
-    visualize() {
-          this.anal.getByteFrequencyData(this.analArray)
-          this.aa = this.analArray[4]
-          //the_numb, in_min, in_max, out_min, out_max
-          gsap.to(this.$refs.header, 0.1, {
-            scale: map(this.aa, 0, 150, 1, 1.1) 
-          }); 
+    visualize () {
+      this.anal.getByteFrequencyData(this.analArray)
+      this.aa = this.analArray[4]
+      // the_numb, in_min, in_max, out_min, out_max
+      gsap.to(this.$refs.header, 0.1, {
+        scale: map(this.aa, 0, 150, 1, 1.1)
+      })
 
-          this.$refs.header.style.color = 'hsla(' +  map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)';
+      this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
 
-          this.$refs.playlist.style.borderTopColor = 'hsla(' +  map(this.analArray[1], 0, 150, 0, 500) + ', 100%, 50%, 1)';
-          this.$refs.playlist.style.borderRightColor = 'hsla(' +  map(this.analArray[5], 0, 150, -500, 0) + ', 100%, 50%, 1)';
-          this.$refs.playlist.style.borderBottomColor = 'hsla(' +  map(this.analArray[3], 0, 150, 0, 300) + ', 100%, 50%, 1)';
-          this.$refs.playlist.style.borderLeftColor = 'hsla(' +  map(this.analArray[4], 0, 150, -200, 100) + ', 100%, 50%, 1)';
+      this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[1], 0, 150, 0, 500) + ', 100%, 50%, 1)'
+      this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, -500, 0) + ', 100%, 50%, 1)'
+      this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[3], 0, 150, 0, 300) + ', 100%, 50%, 1)'
+      this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, -200, 100) + ', 100%, 50%, 1)'
 
-          this.$refs.about.style.color = 'hsla(' +  map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)';
+      this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
-          gsap.to(this.$refs.about,0.1, {
-            scale: map(this.analArray[5], 0, 150, 0.99, 1) 
-          }); 
+      gsap.to(this.$refs.about, 0.1, {
+        scale: map(this.analArray[5], 0, 150, 0.99, 1)
+      })
 
-          gsap.to(this.$refs.info, 0.05, {
-            scale: map(this.analArray[10], 0, 150, 0.99, 1) 
-          });           
+      gsap.to(this.$refs.info, 0.05, {
+        scale: map(this.analArray[10], 0, 150, 0.99, 1)
+      })
 
+      this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
 
-          this.$refs.contact.style.backgroundColor = 'hsla(' +  map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)';
-          
-          requestAnimationFrame(this.visualize)
+      requestAnimationFrame(this.visualize)
     }
   },
-  created() {
-    this.getData() 
+  created () {
+    this.getData()
   },
-  beforeCreate() {
+  beforeCreate () {
   }
 }
 
-
-
 </script>
-
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

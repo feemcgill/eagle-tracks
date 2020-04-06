@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <FlyingEagle />
     <Playlist />
   </div>
 </template>
@@ -7,12 +8,13 @@
 <script>
 // @ is an alias to /src
 import Playlist from '@/components/Playlist.vue'
-
+import FlyingEagle from '@/components/FlyingEagle.vue'
 
 export default {
   name: 'home',
   components: {
-    Playlist
+    Playlist,
+    FlyingEagle
   }
 }
 </script>
