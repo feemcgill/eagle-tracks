@@ -18,7 +18,7 @@
     <ThePlaylist class="the-playlist">
       <table ref="playlist">
         <tr v-for="track in playlist.songs" v-bind:key="track.name">
-          <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
+          <td> <a v-on:click="playTapeSound()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
           <td>{{ track.name }}</td>
           <td>{{ track.artist }}</td>
         </tr>
@@ -106,9 +106,9 @@
 
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
-        <span class="amplitude-prev et-player-button">Prev</span>
-        <span class="amplitude-play-pause et-player-button"><span></span></span>
-        <span class="amplitude-next et-player-button">Next</span>
+        <span v-on:click="playTapeSound()" class="amplitude-prev et-player-button">Prev</span>
+        <span v-on:click="playTapeSound()" class="amplitude-play-pause et-player-button"><span></span></span>
+        <span v-on:click="playTapeSound()" class="amplitude-next et-player-button">Next</span>
       </div>
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
   </TheFooter>
@@ -134,6 +134,7 @@ import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
 import gsap from 'gsap'
 import { map } from '../helpers'
+import mp3 from '../assets/cassette.mp3'
 
 import {
   TheHeader,
@@ -177,7 +178,8 @@ export default {
       aa: 69,
       playlist: {},
       aboutText: null,
-      currentTrack: 'not yet'
+      currentTrack: 'not yet',
+      sound: null
     }
   },
   methods: {
@@ -239,8 +241,6 @@ export default {
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
     },
-    clicker () {
-    },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
       this.aa = this.analArray[4]
@@ -269,12 +269,19 @@ export default {
       this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
 
       requestAnimationFrame(this.visualize)
-    }
+    },
+    playTapeSound() {
+      this.sound.play()
+    }    
   },
   created () {
     this.getData()
+    this.sound = new Audio(mp3)
+
   },
   beforeCreate () {
+  },
+  mounted() {
   }
 }
 
