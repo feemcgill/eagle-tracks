@@ -66,10 +66,10 @@ const ThePlaylist = styled.div`
     margin: 0;
   `}     
   table {
-    border: 30px solid yellow;
-    border-right-color: red;
-    border-bottom-color: green;
-    border-left-color: orange;
+    border: 30px solid rgb(0, 128, 255);
+    border-right-color: rgb(0, 82, 255);
+    border-bottom-color:  rgb(13, 0, 255);
+    border-left-color:  rgb(0, 103, 255);
     width: 100%;
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
     margin-bottom: 100px;
