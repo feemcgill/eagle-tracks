@@ -93,9 +93,14 @@
 
     </div>
     <div ref="info" class="info">
-      <img src="../assets/water.gif" alt="">
-      <img src="../assets/moulder.gif" alt="">
-      <img src="../assets/7eL.gif" alt="">
+      <img class="reality" src="../assets/water.gif" alt="">
+      <img class="reality" src="../assets/moulder.gif" alt="">
+      <img class="reality" src="../assets/7eL.gif" alt="">
+      <div class="gifs">
+        <GifGuys />
+        <GifGuys />
+        <GifGuys />
+      </div>
     </div>
   </AboutEagleTracks>
 
@@ -124,11 +129,20 @@
       <img src="../assets/tree-car.jpg" alt="">     
     </div>  
   </ContactSection>
-  <WebCounter>
-    <a href="https://www.hitwebcounter.com" target="_blank">
-      <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
-    </a> 
-  </WebCounter>   
+  <GifsAndCounter>
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+    </div>
+    <div class="counter">
+      <a href="https://www.hitwebcounter.com" target="_blank">
+        <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
+      </a>
+    </div> 
+  </GifsAndCounter>
+
+
 </div>
 </template>
 
@@ -141,6 +155,7 @@ import styled from 'vue-styled-components'
 import gsap from 'gsap'
 import { map } from '../helpers'
 import mp3 from '../assets/mp3/cassette.mp3'
+import GifGuys from './GifGuys.vue'
 
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
@@ -152,7 +167,7 @@ import {
   AboutEagleTracks,
   TheFooter,
   ContactSection,
-  WebCounter
+  GifsAndCounter
 } from './styles.js'
 
 let aaa
@@ -179,7 +194,8 @@ export default {
     Carousel,
     Slide,
     ContactSection,
-    WebCounter
+    GifsAndCounter,
+    GifGuys
   },
   data () {
     return {
@@ -326,7 +342,6 @@ export default {
 <style scoped>
 #eagle-tracks {
   color: white;
-  padding-bottom: 300px;
   margin: 0 auto;
   transform-origin: top;
   opacity: 0;

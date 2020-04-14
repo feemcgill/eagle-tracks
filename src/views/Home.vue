@@ -17,7 +17,7 @@ export default {
   name: 'home',
   components: {
     Playlist,
-    FlyingEagle
+    FlyingEagle,
   }
 }
 </script>

@@ -252,9 +252,17 @@ const ContactSection = styled.div`
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
   }
 `
-const WebCounter = styled.div`
+const GifsAndCounter = styled.div`
     text-align: center;
     margin: 150px auto;
+    > div {
+      margin-bottom: 60px;
+    }
+    .gifs {
+      img {
+        margin: 0 20px;
+      }
+    }
 `
 export {
   TheHeader,
@@ -263,5 +271,5 @@ export {
   AboutEagleTracks,
   TheFooter,
   ContactSection,
-  WebCounter
+  GifsAndCounter
 }
