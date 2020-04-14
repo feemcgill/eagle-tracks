@@ -100,10 +100,12 @@
   </AboutEagleTracks>
 
   <TheFooter>
-
-     <!--  <div class="amplitude-wave-form"></div>  -->
-      <!-- <div class="amplitude-visualization"></div> -->
-
+      <template v-if="iOS">
+        iOS iOS iOS iOS iOS iOS iOS
+      </template>
+      <template v-else>
+        <div class="amplitude-wave-form"></div>
+      </template>
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
         <span v-on:click="playTapeSound()" class="amplitude-prev et-player-button">Prev</span>
@@ -135,6 +137,12 @@ import styled from 'vue-styled-components'
 import gsap from 'gsap'
 import { map } from '../helpers'
 import mp3 from '../assets/cassette.mp3'
+
+const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+//const iOS = true
+
+console.log(iOS)
+
 
 import {
   TheHeader,
@@ -176,6 +184,7 @@ export default {
       anal: null,
       analArray: null,
       aa: 69,
+      iOS: iOS,
       playlist: {},
       aboutText: null,
       currentTrack: 'not yet',
@@ -186,11 +195,13 @@ export default {
     initAudio () {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        // this.anal = Amplitude.getAnalyser()
-        // this.anal.fftSize = 32
-        // this.analArray = new Uint8Array(this.anal.frequencyBinCount)
-        // this.anal.getByteFrequencyData(this.analArray)
-        // requestAnimationFrame(this.visualize)
+        if (!this.iOS) {        
+          this.anal = Amplitude.getAnalyser()
+          this.anal.fftSize = 32
+          this.analArray = new Uint8Array(this.anal.frequencyBinCount)
+          this.anal.getByteFrequencyData(this.analArray)
+          requestAnimationFrame(this.visualize)
+        }
       }, 1000)
     },
     getData () {
@@ -277,7 +288,7 @@ export default {
   created () {
     this.getData()
     this.sound = new Audio(mp3)
-
+    this.sound.preload = "auto"
   },
   beforeCreate () {
   },
