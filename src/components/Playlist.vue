@@ -200,7 +200,7 @@ export default {
         Amplitude.bindNewElements()
         if (!this.iOS) {        
           this.anal = Amplitude.getAnalyser()
-          this.anal.fftSize = 32
+          this.anal.fftSize = 64
           this.analArray = new Uint8Array(this.anal.frequencyBinCount)
           this.anal.getByteFrequencyData(this.analArray)
           requestAnimationFrame(this.visualize)
@@ -270,19 +270,20 @@ export default {
     },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
-      this.aa = this.analArray[4]
+      this.aa = this.analArray
       // the_numb, in_min, in_max, out_min, out_max
+      console.log(this.analArray)
       if (this.playing) {
-        gsap.to(this.$refs.header, 0.1, {
-          scale: map(this.aa, 0, 150, 1, 1.1)
+        gsap.to(this.$refs.header, 1, {
+          scale: map(this.analArray[4], 0, 150, 1, 1.1)
         })
 
-        this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
+        this.$refs.header.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 0, 100) + ', 95%, 90%, 1)'
 
-        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 150, 320, 450) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, 320, 450) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 50, 150, 280, 480) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, 320, 450) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 255, 200, 450) + ', 150%, 50%, 1)'
 
         this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
