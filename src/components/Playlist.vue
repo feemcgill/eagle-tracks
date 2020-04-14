@@ -279,10 +279,10 @@ export default {
 
         this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
 
-        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 150, 160, 300) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, 160, 300) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 0, 150, 160, 300) + ', 50%, 50%, 1)'
-        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, 160, 300) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 150, 320, 450) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, 320, 450) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 50, 150, 280, 480) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, 320, 450) + ', 50%, 50%, 1)'
 
         this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
