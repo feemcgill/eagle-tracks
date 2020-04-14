@@ -1,5 +1,5 @@
 <template>
-<div id="eagle-tracks">
+<div ref="wholeVibe" id="eagle-tracks">
   <TheHeader class="title-header" :jammer="{
     primary: '60'
   }">
@@ -294,6 +294,7 @@ export default {
   beforeCreate () {
   },
   mounted() {
+    gsap.to(this.$refs.wholeVibe, 0.5, {rotation: 360, ease:  "back.out(0.7)"})
   }
 }
 
@@ -305,6 +306,8 @@ export default {
   color: white;
   padding-bottom: 300px;
   margin: 0 auto;
+  transform: rotate(-180);
+  transform-origin: top;
 }
 body {
   background-size: 350%;
