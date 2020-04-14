@@ -26,7 +26,7 @@
     </ThePlaylist>
   </template>
 
-  <AboutEagleTracks>
+  <AboutEagleTracks v-if="loadTheGoods">
     <div ref="about" class="about">
       <h2 >About Eagle Tracks</h2>
       <div v-html="aboutText"></div>
@@ -116,16 +116,19 @@
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
   </TheFooter>
 
-  <ContactSection>
+  <ContactSection v-if="loadTheGoods">
     <div ref="contact">
       <h3>Contact Us</h3>
       <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
-          <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
-
-      <img src="../assets/tree-car.jpg" alt="">
-    </div>
+      <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
+      <img src="../assets/tree-car.jpg" alt="">     
+    </div>  
   </ContactSection>
-
+  <WebCounter>
+    <a href="https://www.hitwebcounter.com" target="_blank">
+      <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
+    </a> 
+  </WebCounter>   
 </div>
 </template>
 
@@ -141,13 +144,15 @@ import mp3 from '../assets/cassette.mp3'
 
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
+
 import {
   TheHeader,
   GetTheTape,
   ThePlaylist,
   AboutEagleTracks,
   TheFooter,
-  ContactSection
+  ContactSection,
+  WebCounter
 } from './styles.js'
 
 let aaa
@@ -173,13 +178,15 @@ export default {
     TheFooter,
     Carousel,
     Slide,
-    ContactSection
+    ContactSection,
+    WebCounter
   },
   data () {
     return {
       showPage: false,
       loading: false,
       playing: false,
+      loadTheGoods: false,
       anal: null,
       analArray: null,
       aa: 69,
@@ -229,11 +236,7 @@ export default {
     },
     initAmplitude () {
       Amplitude.init({
-        // waveforms: {
-        //   sample_rate: 240
-        // },
-        // preload: "auto",
-        // debug: true,
+        preload: "auto",
         songs: this.playlist.songs,
         callbacks: {
           'song_change': () => {
@@ -243,7 +246,9 @@ export default {
           'initialized': () => {
             this.getTrack()
             this.loading = false
+            this.loadTheGoods = true
             this.initAudio()
+            this.introAnimation()
           },
           'stop': () => {
             this.playing = false
@@ -263,6 +268,12 @@ export default {
       } else {
         this.playing = true
       }
+    },
+    introAnimation() {
+      gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
+      gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
+        gsap.killTweensOf(this.$refs.wholeVibe)
+      }})      
     },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
@@ -306,15 +317,6 @@ export default {
   beforeCreate () {
   },
   mounted() {
-    setTimeout(() => {
-      gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
-      gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
-        gsap.killTweensOf(this.$refs.wholeVibe)
-      }})      
-    }, 300);
-
-    window.AAA = Amplitude;
-
   }
 }
 

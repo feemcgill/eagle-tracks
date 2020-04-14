@@ -1,13 +1,8 @@
 import styled from 'vue-styled-components'
-import memorex from '../assets/memorex.gif'
-import trees from '../assets/trees.jpg'
 import td from '../assets/tie-dye.jpg'
 import tyeDye from '../assets/tie-dye2.jpg'
-// import treecar from '../assets/tree-car.jpg'
+import trees from '../assets/trees.jpg'
 import { css } from 'vue-styled-components'
-import Playlist from '@/components/Playlist.vue'
-
-console.log('FROMHERE', Playlist)
 
 // Media Queries
 const media_query = {
@@ -253,16 +248,20 @@ const ContactSection = styled.div`
   color: aqua;
   img {
     margin-top: 40px;
-    /* max-width: 300px; */
+    margin-bottom: 20px;
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
   }
 `
-
+const WebCounter = styled.div`
+    text-align: center;
+    margin: 150px auto;
+`
 export {
   TheHeader,
   GetTheTape,
   ThePlaylist,
   AboutEagleTracks,
   TheFooter,
-  ContactSection
+  ContactSection,
+  WebCounter
 }
