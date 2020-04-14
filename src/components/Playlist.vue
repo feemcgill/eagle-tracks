@@ -105,6 +105,7 @@
       </template>
       <template v-else>
         <div class="amplitude-wave-form"></div>
+        JAH JAH JAH
       </template>
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
