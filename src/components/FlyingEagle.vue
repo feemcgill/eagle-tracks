@@ -68,5 +68,6 @@ export default {
   object-fit: cover;
   opacity: 0;
   cursor: not-allowed;
+  z-index: 1000000;
 }
 </style>

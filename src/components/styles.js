@@ -2,7 +2,7 @@ import styled from 'vue-styled-components'
 import memorex from '../assets/memorex.gif'
 import trees from '../assets/trees.jpg'
 import td from '../assets/tie-dye.jpg'
-
+import tyeDye from '../assets/tie-dye2.jpg'
 // import treecar from '../assets/tree-car.jpg'
 import { css } from 'vue-styled-components'
 import Playlist from '@/components/Playlist.vue'
@@ -58,14 +58,24 @@ const GetTheTape = styled.div`
   display: none;
 `
 const ThePlaylist = styled.div`
+  background-image: url(${tyeDye});
+  background-position: center;
+  background-size: cover;
+  margin: 0 5vw;
+  ${media_query.break`
+    margin: 0;
+  `}     
   table {
-    border: 10px solid yellow;
+    border: 30px solid yellow;
     border-right-color: red;
     border-bottom-color: green;
     border-left-color: orange;
     width: 100%;
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
     margin-bottom: 100px;
+    ${media_query.break`
+     border-width: 10px;
+    `}      
   }
   tr {
   }

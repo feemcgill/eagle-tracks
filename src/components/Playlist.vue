@@ -18,7 +18,7 @@
     <ThePlaylist class="the-playlist">
       <table ref="playlist">
         <tr v-for="track in playlist.songs" v-bind:key="track.name">
-          <td> <a v-on:click="playTapeSound()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
+          <td> <a v-on:click="etPlayPause()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
           <td>{{ track.name }}</td>
           <td>{{ track.artist }}</td>
         </tr>
@@ -110,7 +110,7 @@
       <progress class="amplitude-song-played-progress"></progress>
       <div class="main-controls">
         <span v-on:click="playTapeSound()" class="amplitude-prev et-player-button">Prev</span>
-        <span v-on:click="playTapeSound()" class="amplitude-play-pause et-player-button"><span></span></span>
+        <span v-on:click="etPlayPause()" class="amplitude-play-pause et-player-button"><span></span></span>
         <span v-on:click="playTapeSound()" class="amplitude-next et-player-button">Next</span>
       </div>
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
@@ -181,7 +181,9 @@ export default {
   },
   data () {
     return {
+      showPage: false,
       loading: false,
+      playing: false,
       anal: null,
       analArray: null,
       aa: 69,
@@ -240,11 +242,15 @@ export default {
         callbacks: {
           'song_change': () => {
             this.getTrack()
+            this.playing = true
           },
           'initialized': () => {
             this.getTrack()
             this.loading = false
             this.initAudio()
+          },
+          'stop': () => {
+            this.playing = false
           }
         }
       })
@@ -253,33 +259,43 @@ export default {
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
     },
+    etPlayPause() {
+      const status = Amplitude.getPlayerState();
+      this.playTapeSound()
+      if (status == 'playing') {
+        this.playing = false
+      } else {
+        this.playing = true
+      }
+    },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
       this.aa = this.analArray[4]
       // the_numb, in_min, in_max, out_min, out_max
-      gsap.to(this.$refs.header, 0.1, {
-        scale: map(this.aa, 0, 150, 1, 1.1)
-      })
+      if (this.playing) {
+        gsap.to(this.$refs.header, 0.1, {
+          scale: map(this.aa, 0, 150, 1, 1.1)
+        })
 
-      this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
+        this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
 
-      this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[1], 0, 150, 0, 500) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, -500, 0) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[3], 0, 150, 0, 300) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, -200, 100) + ', 100%, 50%, 1)'
+        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 150, 160, 300) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, 160, 300) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 0, 150, 160, 300) + ', 50%, 50%, 1)'
+        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, 160, 300) + ', 50%, 50%, 1)'
 
-      this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
+        this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
-      gsap.to(this.$refs.about, 0.1, {
-        scale: map(this.analArray[5], 0, 150, 0.99, 1)
-      })
+        gsap.to(this.$refs.about, 0.1, {
+          scale: map(this.analArray[5], 0, 150, 0.99, 1)
+        })
 
-      gsap.to(this.$refs.info, 0.05, {
-        scale: map(this.analArray[10], 0, 150, 0.99, 1)
-      })
+        gsap.to(this.$refs.info, 0.05, {
+          scale: map(this.analArray[10], 0, 150, 0.99, 1)
+        })
 
-      this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
-
+        this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
+      }
       requestAnimationFrame(this.visualize)
     },
     playTapeSound() {
@@ -294,7 +310,16 @@ export default {
   beforeCreate () {
   },
   mounted() {
-    gsap.to(this.$refs.wholeVibe, 0.5, {rotation: 360, ease:  "back.out(0.7)"})
+    setTimeout(() => {
+      gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
+      gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
+        console.log('ROTATO')
+        gsap.killTweensOf(this.$refs.wholeVibe)
+      }})      
+    }, 300);
+
+    window.AAA = Amplitude;
+
   }
 }
 
@@ -306,8 +331,8 @@ export default {
   color: white;
   padding-bottom: 300px;
   margin: 0 auto;
-  transform: rotate(-180);
   transform-origin: top;
+  opacity: 0;
 }
 body {
   background-size: 350%;

@@ -41,12 +41,6 @@ body {
   background-size: cover;
 }
 
-.the-playlist {
-  background-image: url('../assets/tie-dye2.jpg');
-  background-position: center;
-  background-size: cover;  
-}
-
 .et-player-button {
     width: 32px;
     height: 33px;
