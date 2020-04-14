@@ -309,15 +309,15 @@ export default {
 
         this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
-        gsap.to(this.$refs.about, 0.1, {
-          scale: map(this.analArray[5], 0, 150, 0.99, 1)
-        })
+        // gsap.to(this.$refs.about, 0.1, {
+        //   scale: map(this.analArray[5], 0, 150, 0.99, 1)
+        // })
 
-        gsap.to(this.$refs.info, 0.05, {
-          scale: map(this.analArray[10], 0, 150, 0.99, 1)
-        })
+        // gsap.to(this.$refs.info, 0.05, {
+        //   scale: map(this.analArray[10], 0, 150, 0.99, 1)
+        // })
 
-        this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
+        // this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 255, 270, 300) + ', 100%, 60%, 1)'
       }
       requestAnimationFrame(this.visualize)
     },

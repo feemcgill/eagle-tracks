@@ -68,7 +68,7 @@ export default {
     this.fly()
     this.timer = setInterval(() => {
       this.fly()
-    }, 15000);
+    }, 25000);
   },
   beforeDestroy () {
     clearInterval(this.timer)
