@@ -140,7 +140,7 @@ import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
 import gsap from 'gsap'
 import { map } from '../helpers'
-import mp3 from '../assets/cassette.mp3'
+import mp3 from '../assets/mp3/cassette.mp3'
 
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
