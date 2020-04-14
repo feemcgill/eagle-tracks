@@ -140,10 +140,6 @@ import { map } from '../helpers'
 import mp3 from '../assets/cassette.mp3'
 
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-//const iOS = true
-
-console.log(iOS)
-
 
 import {
   TheHeader,
@@ -272,7 +268,6 @@ export default {
       this.anal.getByteFrequencyData(this.analArray)
       this.aa = this.analArray
       // the_numb, in_min, in_max, out_min, out_max
-      console.log(this.analArray)
       if (this.playing) {
         gsap.to(this.$refs.header, 1, {
           scale: map(this.analArray[4], 0, 150, 1, 1.1)
@@ -314,7 +309,6 @@ export default {
     setTimeout(() => {
       gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
       gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
-        console.log('ROTATO')
         gsap.killTweensOf(this.$refs.wholeVibe)
       }})      
     }, 300);
