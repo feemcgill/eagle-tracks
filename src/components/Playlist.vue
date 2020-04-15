@@ -1,5 +1,5 @@
 <template>
-<div id="eagle-tracks">
+<div ref="wholeVibe" id="eagle-tracks">
   <TheHeader class="title-header" :jammer="{
     primary: '60'
   }">
@@ -16,17 +16,24 @@
   </template>
   <template v-else>
     <ThePlaylist class="the-playlist">
+      <div ref="thePlaylistBg" class="the-playlist-bg"></div>
       <table ref="playlist">
         <tr v-for="track in playlist.songs" v-bind:key="track.name">
-          <td> <a v-on:click="clicker()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
+          <td> <a v-on:click="etPlayPause()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
           <td>{{ track.name }}</td>
           <td>{{ track.artist }}</td>
         </tr>
       </table>
     </ThePlaylist>
   </template>
-
-  <AboutEagleTracks>
+  <GifBreak  v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+    </div>
+  </GifBreak>
+  <AboutEagleTracks v-if="loadTheGoods">
     <div ref="about" class="about">
       <h2 >About Eagle Tracks</h2>
       <div v-html="aboutText"></div>
@@ -93,36 +100,77 @@
 
     </div>
     <div ref="info" class="info">
-      <img src="../assets/water.gif" alt="">
-      <img src="../assets/moulder.gif" alt="">
-      <img src="../assets/7eL.gif" alt="">
+      <img class="reality" src="../assets/water.gif" alt="">
+      <img class="reality" src="../assets/moulder.gif" alt="">
+      <img class="reality" src="../assets/7eL.gif" alt="">
     </div>
   </AboutEagleTracks>
 
-  <TheFooter>
 
-     <!--  <div class="amplitude-wave-form"></div>  -->
-      <!-- <div class="amplitude-visualization"></div> -->
 
-      <progress class="amplitude-song-played-progress"></progress>
-      <div class="main-controls">
-        <span class="amplitude-prev et-player-button">Prev</span>
-        <span class="amplitude-play-pause et-player-button"><span></span></span>
-        <span class="amplitude-next et-player-button">Next</span>
-      </div>
-      <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
-  </TheFooter>
+  <GifBreak  v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+    </div>
+  </GifBreak>
 
-  <ContactSection>
+  <ContactSection v-if="loadTheGoods">
     <div ref="contact">
       <h3>Contact Us</h3>
       <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
-          <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
-
-      <img src="../assets/tree-car.jpg" alt="">
-    </div>
+      <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
+      <img src="../assets/tree-car.jpg" alt="">     
+    </div>  
   </ContactSection>
 
+  <GifBreak v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />      
+    </div>
+  </GifBreak>
+
+  <TheBottom v-if="loadTheGoods">
+    <hr />
+    <a href="https://devgru.la" target="_blank" class="webmaster">
+      <button>Questions, comments, concerns?</button>
+      <div>
+        talk to the
+      </div>
+      <div>
+        <img src="@/assets/webmaster.gif" />
+      </div>
+    </a>
+
+    <div class="counter">
+      <a href="https://www.hitwebcounter.com" target="_blank">
+        <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
+      </a>
+    </div>
+  </TheBottom>
+
+  <TheFooter>
+      <template v-if="iOS">
+        iOS iOS iOS iOS iOS iOS iOS
+      </template>
+      <template v-else>
+        <div class="amplitude-wave-form"></div>
+        JAH JAH JAH
+      </template>
+      <progress class="amplitude-song-played-progress"></progress>
+      <div class="main-controls">
+        <span v-on:click="playTapeSound()" class="amplitude-prev et-player-button">Prev</span>
+        <span v-on:click="etPlayPause()" class="amplitude-play-pause et-player-button"><span></span></span>
+        <span v-on:click="playTapeSound()" class="amplitude-next et-player-button">Next</span>
+      </div>
+      <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
+  </TheFooter>
 </div>
 </template>
 
@@ -134,6 +182,11 @@ import { Carousel, Slide } from 'vue-carousel'
 import styled from 'vue-styled-components'
 import gsap from 'gsap'
 import { map } from '../helpers'
+import mp3 from '../assets/mp3/cassette.mp3'
+import GifGuys from './GifGuys.vue'
+
+const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
 
 import {
   TheHeader,
@@ -141,7 +194,9 @@ import {
   ThePlaylist,
   AboutEagleTracks,
   TheFooter,
-  ContactSection
+  ContactSection,
+  GifBreak,
+  TheBottom
 } from './styles.js'
 
 let aaa
@@ -167,28 +222,38 @@ export default {
     TheFooter,
     Carousel,
     Slide,
-    ContactSection
+    ContactSection,
+    GifBreak,
+    GifGuys,
+    TheBottom
   },
   data () {
     return {
+      showPage: false,
       loading: false,
+      playing: false,
+      loadTheGoods: false,
       anal: null,
       analArray: null,
       aa: 69,
+      iOS: iOS,
       playlist: {},
       aboutText: null,
-      currentTrack: 'not yet'
+      currentTrack: 'not yet',
+      sound: null
     }
   },
   methods: {
     initAudio () {
       setTimeout(() => {
         Amplitude.bindNewElements()
-        // this.anal = Amplitude.getAnalyser()
-        // this.anal.fftSize = 32
-        // this.analArray = new Uint8Array(this.anal.frequencyBinCount)
-        // this.anal.getByteFrequencyData(this.analArray)
-        // requestAnimationFrame(this.visualize)
+        if (!this.iOS) {        
+          this.anal = Amplitude.getAnalyser()
+          this.anal.fftSize = 64
+          this.analArray = new Uint8Array(this.anal.frequencyBinCount)
+          this.anal.getByteFrequencyData(this.analArray)
+          requestAnimationFrame(this.visualize)
+        }
       }, 1000)
     },
     getData () {
@@ -213,24 +278,27 @@ export default {
             })
           }
           this.initAmplitude()
+          setTimeout(() => {
+            this.introAnimation()            
+          }, 1200);
         })
     },
     initAmplitude () {
       Amplitude.init({
-        // waveforms: {
-        //   sample_rate: 240
-        // },
-        // preload: "auto",
-        // debug: true,
+        preload: "auto",
         songs: this.playlist.songs,
         callbacks: {
           'song_change': () => {
             this.getTrack()
+            this.playing = true
           },
           'initialized': () => {
             this.getTrack()
             this.loading = false
             this.initAudio()
+          },
+          'stop': () => {
+            this.playing = false
           }
         }
       })
@@ -239,42 +307,64 @@ export default {
       const song = Amplitude.getActiveSongMetadata()
       this.currentTrack = song.name + ' by ' + (song.artist && song.artist)
     },
-    clicker () {
+    etPlayPause() {
+      const status = Amplitude.getPlayerState();
+      this.playTapeSound()
+      if (status == 'playing') {
+        this.playing = false
+      } else {
+        this.playing = true
+      }
+    },
+    introAnimation() {
+      this.loadTheGoods = true
+      gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
+      gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
+        gsap.killTweensOf(this.$refs.wholeVibe)
+      }})      
     },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
-      this.aa = this.analArray[4]
+      this.aa = this.analArray
       // the_numb, in_min, in_max, out_min, out_max
-      gsap.to(this.$refs.header, 0.1, {
-        scale: map(this.aa, 0, 150, 1, 1.1)
-      })
+      if (this.playing) {
+        gsap.to(this.$refs.header, 1, {
+          scale: map(this.analArray[4], 0, 150, 1, 1.1)
+        })
 
-      this.$refs.header.style.color = 'hsla(' + map(this.aa, 0, 150, 0, 100) + ', 95%, 90%, 1)'
+        this.$refs.header.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 0, 100) + ', 95%, 90%, 1)'
 
-      this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[1], 0, 150, 0, 500) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 150, -500, 0) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[3], 0, 150, 0, 300) + ', 100%, 50%, 1)'
-      this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 150, -200, 100) + ', 100%, 50%, 1)'
+        this.$refs.playlist.style.borderTopColor = 'hsla(' + map(this.analArray[3], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderRightColor = 'hsla(' + map(this.analArray[5], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderBottomColor = 'hsla(' + map(this.analArray[2], 0, 255, 200, 450) + ', 150%, 50%, 1)'
+        this.$refs.playlist.style.borderLeftColor = 'hsla(' + map(this.analArray[4], 0, 255, 200, 450) + ', 150%, 50%, 1)'
 
-      this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
+        this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
-      gsap.to(this.$refs.about, 0.1, {
-        scale: map(this.analArray[5], 0, 150, 0.99, 1)
-      })
+        gsap.to(this.$refs.thePlaylistBg, 1, {
+          scale: map(this.analArray[0], 0, 150, 1, 1.4)
+        })
 
-      gsap.to(this.$refs.info, 0.05, {
-        scale: map(this.analArray[10], 0, 150, 0.99, 1)
-      })
+        // gsap.to(this.$refs.info, 0.05, {
+        //   scale: map(this.analArray[10], 0, 150, 0.99, 1)
+        // })
 
-      this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 150, 100, 300) + ', 100%, 60%, 1)'
-
+        // this.$refs.contact.style.backgroundColor = 'hsla(' + map(this.analArray[4], 0, 255, 270, 300) + ', 100%, 60%, 1)'
+      }
       requestAnimationFrame(this.visualize)
-    }
+    },
+    playTapeSound() {
+      this.sound.play()
+    }    
   },
   created () {
     this.getData()
+    this.sound = new Audio(mp3)
+    this.sound.preload = "auto"
   },
   beforeCreate () {
+  },
+  mounted() {
   }
 }
 
@@ -284,8 +374,9 @@ export default {
 <style scoped>
 #eagle-tracks {
   color: white;
-  padding-bottom: 300px;
   margin: 0 auto;
+  transform-origin: top;
+  opacity: 0;
 }
 body {
   background-size: 350%;

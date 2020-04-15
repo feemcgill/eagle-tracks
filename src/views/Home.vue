@@ -9,24 +9,28 @@
 // @ is an alias to /src
 import Playlist from '@/components/Playlist.vue'
 import FlyingEagle from '@/components/FlyingEagle.vue'
+import HeaderBG from '../assets/tie-dye.jpg'
+import SiteBG from '../assets/eag.jpg'
+import ButtonSprite from '../assets/buttons.jpeg'
+import { injectGlobal, styled } from 'vue-styled-components';
 
 export default {
   name: 'home',
   components: {
     Playlist,
-    FlyingEagle
+    FlyingEagle,
   }
 }
-</script>
 
-<style>
+
+injectGlobal`
 * {
   box-sizing: border-box;
 }
 
 body {
   background-color: aquamarine;
-  background-image: url('../assets/eag.jpg');
+  background-image: url(${SiteBG});
   background-size: 50%;
   background-repeat: repeat;
 }
@@ -36,15 +40,9 @@ body {
   overflow: hidden;
 }
 .title-header  h1{
-  background-image: url('../assets/tie-dye.jpg');
+  background-image: url(${HeaderBG});
   background-position: center;
   background-size: cover;
-}
-
-.the-playlist {
-  background-image: url('../assets/tie-dye2.jpg');
-  background-position: center;
-  background-size: cover;  
 }
 
 .et-player-button {
@@ -55,7 +53,7 @@ body {
     color: transparent;
     background-size: 150px;
     background-color: pink;
-    background-image: url('../assets/buttons.jpeg');
+    background-image: url(${ButtonSprite});
     cursor: pointer;
     border-radius: 100%;
 }
@@ -94,5 +92,5 @@ body {
   animation: example1 15s linear infinite;
 }
 
-
-</style>
+`;
+</script>
