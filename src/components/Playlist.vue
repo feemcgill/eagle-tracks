@@ -16,6 +16,7 @@
   </template>
   <template v-else>
     <ThePlaylist class="the-playlist">
+      <div ref="thePlaylistBg" class="the-playlist-bg"></div>
       <table ref="playlist">
         <tr v-for="track in playlist.songs" v-bind:key="track.name">
           <td> <a v-on:click="etPlayPause()" class="amplitude-play-pause et-player-button" :data-amplitude-song-index="track.index"></a></td>
@@ -25,7 +26,13 @@
       </table>
     </ThePlaylist>
   </template>
-
+  <GifBreak  v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+    </div>
+  </GifBreak>
   <AboutEagleTracks v-if="loadTheGoods">
     <div ref="about" class="about">
       <h2 >About Eagle Tracks</h2>
@@ -96,13 +103,57 @@
       <img class="reality" src="../assets/water.gif" alt="">
       <img class="reality" src="../assets/moulder.gif" alt="">
       <img class="reality" src="../assets/7eL.gif" alt="">
-      <div class="gifs">
-        <GifGuys />
-        <GifGuys />
-        <GifGuys />
-      </div>
     </div>
   </AboutEagleTracks>
+
+
+
+  <GifBreak  v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+    </div>
+  </GifBreak>
+
+  <ContactSection v-if="loadTheGoods">
+    <div ref="contact">
+      <h3>Contact Us</h3>
+      <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
+      <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
+      <img src="../assets/tree-car.jpg" alt="">     
+    </div>  
+  </ContactSection>
+
+  <GifBreak v-if="loadTheGoods">
+    <div class="gifs">
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />
+      <GifGuys />
+      <GifGuys />  
+      <GifGuys />      
+    </div>
+  </GifBreak>
+
+  <TheBottom v-if="loadTheGoods">
+    <hr />
+    <a href="https://devgru.la" target="_blank" class="webmaster">
+      <button>Questions, comments, concerns?</button>
+      <div>
+        talk to the
+      </div>
+      <div>
+        <img src="@/assets/webmaster.gif" />
+      </div>
+    </a>
+
+    <div class="counter">
+      <a href="https://www.hitwebcounter.com" target="_blank">
+        <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
+      </a>
+    </div>
+  </TheBottom>
 
   <TheFooter>
       <template v-if="iOS">
@@ -120,29 +171,6 @@
       </div>
       <div class="current-track">NOW PLAYING: {{currentTrack}}</div>
   </TheFooter>
-
-  <ContactSection v-if="loadTheGoods">
-    <div ref="contact">
-      <h3>Contact Us</h3>
-      <div><a href="mailto:eagletracksla@gmail.com ">eagletracksla@gmail.com </a></div>
-      <div><a target="_blank" href="https://www.instagram.com/eagletracksla/ ">@eagletracksla</a></div>
-      <img src="../assets/tree-car.jpg" alt="">     
-    </div>  
-  </ContactSection>
-  <GifsAndCounter  v-if="loadTheGoods">
-    <div class="gifs">
-      <GifGuys />
-      <GifGuys />  
-      <GifGuys />
-    </div>
-    <div class="counter">
-      <a href="https://www.hitwebcounter.com" target="_blank">
-        <img src="https://hitwebcounter.com/counter/counter.php?page=7230194&style=0015&nbdigits=5&type=page&initCount=1000" title="User Stats" Alt="PHP Hits Count"   border="0" >
-      </a>
-    </div> 
-  </GifsAndCounter>
-
-
 </div>
 </template>
 
@@ -167,7 +195,8 @@ import {
   AboutEagleTracks,
   TheFooter,
   ContactSection,
-  GifsAndCounter
+  GifBreak,
+  TheBottom
 } from './styles.js'
 
 let aaa
@@ -194,8 +223,9 @@ export default {
     Carousel,
     Slide,
     ContactSection,
-    GifsAndCounter,
-    GifGuys
+    GifBreak,
+    GifGuys,
+    TheBottom
   },
   data () {
     return {
@@ -311,9 +341,9 @@ export default {
 
         this.$refs.about.style.color = 'hsla(' + map(this.analArray[4], 0, 150, 10, 100) + ', 100%, 20%, 1)'
 
-        // gsap.to(this.$refs.about, 0.1, {
-        //   scale: map(this.analArray[5], 0, 150, 0.99, 1)
-        // })
+        gsap.to(this.$refs.thePlaylistBg, 1, {
+          scale: map(this.analArray[0], 0, 150, 1, 1.4)
+        })
 
         // gsap.to(this.$refs.info, 0.05, {
         //   scale: map(this.analArray[10], 0, 150, 0.99, 1)

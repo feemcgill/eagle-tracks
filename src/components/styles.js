@@ -53,13 +53,25 @@ const GetTheTape = styled.div`
   display: none;
 `
 const ThePlaylist = styled.div`
-  background-image: url(${tyeDye});
-  background-position: center;
-  background-size: cover;
   margin: 0 5vw;
+  position: relative;
+  background-color: darkturquoise;
+  overflow: hidden;
   ${media_query.break`
     margin: 0;
-  `}     
+  `}
+  .the-playlist-bg {
+    background-image: url(${tyeDye});
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    transform-origin: center center;
+  }     
   table {
     border: 30px solid rgb(0, 128, 255);
     border-right-color: rgb(0, 82, 255);
@@ -67,7 +79,8 @@ const ThePlaylist = styled.div`
     border-left-color:  rgb(0, 103, 255);
     width: 100%;
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
-    margin-bottom: 100px;
+    position: relative;
+    z-index: 10;
     ${media_query.break`
      border-width: 10px;
     `}      
@@ -252,18 +265,43 @@ const ContactSection = styled.div`
     box-shadow: 20px 20px 20px rgba(0,0,0,0.5);
   }
 `
-const GifsAndCounter = styled.div`
+const GifBreak = styled.div`
     text-align: center;
-    margin: 150px auto;
-    > div {
-      margin-bottom: 60px;
-    }
+    margin: 50px auto;
     .gifs {
+      height: 200px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: center;      
       img {
         margin: 0 20px;
       }
     }
 `
+const TheBottom = styled.div`
+  .counter {
+    margin-bottom: 150px;
+    text-align: center;
+  }
+  .webmaster {
+    display: block;
+    text-align: center;
+    color: fuchsia;
+    padding: 20px;
+    border-right: 2px solid black;
+    border-top: 2px solid aqua;
+    border-bottom: 2px solid violet;
+    border-left: 2px solid green;
+    max-width: 700px;
+    margin: 80px auto;
+    &:hover {
+      background-color: purple;
+    }
+  }
+`
+
 export {
   TheHeader,
   GetTheTape,
@@ -271,5 +309,6 @@ export {
   AboutEagleTracks,
   TheFooter,
   ContactSection,
-  GifsAndCounter
+  GifBreak,
+  TheBottom
 }
