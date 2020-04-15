@@ -129,7 +129,7 @@
       <img src="../assets/tree-car.jpg" alt="">     
     </div>  
   </ContactSection>
-  <GifsAndCounter>
+  <GifsAndCounter  v-if="loadTheGoods">
     <div class="gifs">
       <GifGuys />
       <GifGuys />  
@@ -248,6 +248,9 @@ export default {
             })
           }
           this.initAmplitude()
+          setTimeout(() => {
+            this.introAnimation()            
+          }, 1200);
         })
     },
     initAmplitude () {
@@ -262,9 +265,7 @@ export default {
           'initialized': () => {
             this.getTrack()
             this.loading = false
-            this.loadTheGoods = true
             this.initAudio()
-            this.introAnimation()
           },
           'stop': () => {
             this.playing = false
@@ -286,6 +287,7 @@ export default {
       }
     },
     introAnimation() {
+      this.loadTheGoods = true
       gsap.set(this.$refs.wholeVibe, {alpha: 1, rotation: -180})
       gsap.to(this.$refs.wholeVibe, 0.7, {rotation: 0, ease:  "back.out(0.7)",  clearProps:"transform", onComplete: () => {
         gsap.killTweensOf(this.$refs.wholeVibe)

@@ -1,6 +1,6 @@
 import styled from 'vue-styled-components'
-import td from '../assets/tie-dye.jpg'
 import tyeDye from '../assets/tie-dye2.jpg'
+import td from '../assets/tie-dye.jpg'
 import trees from '../assets/trees.jpg'
 import { css } from 'vue-styled-components'
 

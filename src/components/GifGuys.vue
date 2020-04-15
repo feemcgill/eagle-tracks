@@ -42,11 +42,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-  img {
-    /* height: 60px;
-    width: auto;
-    object-fit: contain; */
-  }
-</style>
