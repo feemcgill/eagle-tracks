@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <Home />
+  <!-- <router-link to="/">Eagel Tracks Home</router-link>
+    <router-link to="/square">The Ace Tomato Company</router-link>     -->
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import Home from './views/Home.vue'
+
+// import {VueRouter, RouterLink} from 'vue-router'
 
 
 
-
-export default {
-  name: 'App',
-  components: {
-    Home
-  }
-}
+// export default {
+//   name: 'App',
+//   // components: {
+//   //   Home
+//   // }
+// }
 
 
 </script>
