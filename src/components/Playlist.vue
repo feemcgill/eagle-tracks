@@ -325,6 +325,8 @@ export default {
     },
     visualize () {
       this.anal.getByteFrequencyData(this.analArray)
+      this.aa = this.analArray
+      // the_numb, in_min, in_max, out_min, out_max
       if (this.playing) {
         gsap.to(this.$refs.header, 1, {
           scale: map(this.analArray[4], 0, 150, 1, 1.1)
