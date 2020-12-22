@@ -6,6 +6,7 @@
       <h1 ref="header" >Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
       <h2>Vol. 1</h2>
   </TheHeader>
+  <BuyNow />
 
   <GetTheTape>
     <h2>Get the tape</h2>
@@ -154,6 +155,7 @@
       </a>
     </div>
   </TheBottom>
+  <BuyNow />
 
   <TheFooter>
       <template v-if="iOS">
@@ -184,6 +186,7 @@ import gsap from 'gsap'
 import { map } from '../helpers'
 import mp3 from '../assets/mp3/cassette.mp3'
 import GifGuys from './GifGuys.vue'
+import BuyNow from './BuyNow.vue'
 
 const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
@@ -225,6 +228,7 @@ export default {
     ContactSection,
     GifBreak,
     GifGuys,
+    BuyNow,
     TheBottom
   },
   data () {
