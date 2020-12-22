@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^13.4.0",
-    "amplitudejs": "^5.0.2",
+    "amplitudejs": "5.0.3",
     "contentful": "^7.8.2",
     "core-js": "^2.6.5",
     "gsap": "^3.5.1",
