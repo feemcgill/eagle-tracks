@@ -39,6 +39,10 @@ const TheHeader = styled.header`
 
     }
   }
+  .tape-pic {
+    max-width: 450px;
+    margin: 50px auto 0;
+  }
 `
 const GetTheTape = styled.div`
   background: pink;
@@ -157,6 +161,9 @@ const AboutEagleTracks = styled.section`
     img {
       display: block;
       margin: 50px;
+    }
+    .buy-wrap {
+      margin-top:300px;
     }
   }
   .etslide {

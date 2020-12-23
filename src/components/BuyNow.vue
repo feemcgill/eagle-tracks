@@ -53,5 +53,9 @@ export default {
 table {
   margin: 0 auto;
 }
+img {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 </style>

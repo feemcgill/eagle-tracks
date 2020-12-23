@@ -3,9 +3,14 @@
   <TheHeader class="title-header" :jammer="{
     primary: '60'
   }">
-      <h1 ref="header" >Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
-      <h2>Vol. 1</h2>
+    <h1 ref="header" >Eagle <img src="../assets/memorex.gif" alt="A tape"> Tracks</h1>
+    <h2>Vol. 1</h2>
+    <div class="tape-pic">
+      <img class="reality" src="../assets/vl1.jpg" alt="">
+    </div>
   </TheHeader>
+
+
   <BuyNow />
 
   <GetTheTape>
@@ -104,6 +109,9 @@
       <img class="reality" src="../assets/water.gif" alt="">
       <img class="reality" src="../assets/moulder.gif" alt="">
       <img class="reality" src="../assets/7eL.gif" alt="">
+      <div class="buy-wrap">
+        <BuyNow />
+      </div>
     </div>
   </AboutEagleTracks>
 
