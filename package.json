@@ -12,7 +12,7 @@
     "amplitudejs": "5.0.3",
     "contentful": "^7.8.2",
     "core-js": "^2.6.5",
-    "gsap": "^3.5.1",
+    "gsap": "^3.6.0",
     "pixi.js": "^5.3.3",
     "vue": "^2.6.10",
     "vue-analytics": "^5.22.1",
