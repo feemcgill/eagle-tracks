@@ -2,6 +2,9 @@
   <div class="home">
     <FlyingEagle />
     <Playlist />
+    <a href="https://eagletracks.net" class="badge-home">
+      <span>Back to <br /> EAGLE TRACKS <br /> homepage.</span>
+    </a>
   </div>
 </template>
 
@@ -38,6 +41,40 @@ body {
 .home {
   width: 100%;
   overflow: hidden;
+}
+.badge-home {
+  padding: 20px;
+  background: yellow;
+  border: 5px dashed green;
+  color: red;
+  border-radius: 100%;
+  position: fixed;
+  z-index: 10000;
+  top: 20px;
+  right: 20px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  font-weight: bold;
+  transition: all 1s ease-out;
+  transform: rotate(10deg);
+
+}
+.badge-home:hover {
+  background: pink;
+  border: 5px dotted yellow;
+  color: black;
+  transform: rotate(-10deg);
+}
+@media (max-width: 900px) {
+  .badge-home {
+    top: auto;
+    bottom: 60px;
+    right: 10px;
+    font-size: 8px;
+    padding: 5px;
+    border-width: 1px!important;
+  }
 }
 .title-header  h1{
   background-image: url(${HeaderBG});
